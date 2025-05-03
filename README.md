@@ -3,7 +3,7 @@
 ## Prerequisites
 
 - Docker
-- PHP 8.1+ and Composer installed (for the Laravel 10)
+- PHP 8.1+ and Composer installed (for Laravel 10)
 
 ## Quick Project Structure
 
@@ -17,7 +17,7 @@
    docker compose up -d
 
 2. Open your browser and go to:
-   http://localhost:5500/login.html
+   http://localhost:5500/
 
 
 ## Running the Laravel Backend (manually)
@@ -37,12 +37,12 @@
 5. Start the Laravel development server on port 7000:
    php artisan serve --host=0.0.0.0 --port=7000
 
-6. The backend will be available at:
+6. The backend will be available at calls on:
    http://localhost:7000/api/v1/...
 
 ## CRUD via cURL or Postman
 
-You can test the API endpoints using tools like Postman or cURL. Make sure your backend is running (via `php artisan serve` on port 7000) and accessible from the frontend or your HTTP client.
+You can test the API endpoints using tools like Postman or cURL. Make sure your backend is running (via `php artisan serve` on port 7000) and accessible. To check it try a http://localhost:7000/api/health request first.
 
 ## Stopping and Cleaning Up
 
@@ -55,6 +55,6 @@ To restart:
 ## Notes
 
 - Manage the overall monorepo with pnpm,
-- Dockerize the backend && database
+- Dockerize the backend && db
 - Implement a proper dashbaord view :l
 
