@@ -10,6 +10,10 @@
 |-----------|----------------------|
 | ![Dashboard](docs/images/screencapture-localhost-5500-dashboard-html-2025-05-03-18_53_49.png) | ![Unauthorized](docs/images/screencapture-localhost-5500-no-access-html-2025-05-03-18_56_37.png) |
 
+## Figma Design
+
+[UI view on Figma](https://www.figma.com/design/HKdFyXD48Wa4srhPkbt8GC/GeoBrandTopList-UI?node-id=0-1&m=dev&t=pN8PM1sEBg4r0glN-1)  
+
 ## Prerequisites
 
 - Docker
