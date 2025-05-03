@@ -15,7 +15,9 @@ class CountrySeeder extends Seeder
 
     public function run()
     {
-        Country::truncate();
+        if (Country::count() > 0) {
+            Country::truncate();
+        }
         
         $retryCount = 0;
         $success = false;
@@ -48,7 +50,6 @@ class CountrySeeder extends Seeder
 
                     $success = true;
                     $this->command->info('Countries seeded successfully!');
-                    
                 } else {
                     $this->command->error("Failed to fetch countries. Status: {$response->status()}");
                     $retryCount++;

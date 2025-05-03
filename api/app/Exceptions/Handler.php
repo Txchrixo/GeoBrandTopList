@@ -53,7 +53,16 @@ class Handler extends ExceptionHandler
             ], $code);
         });
 
+
         $this->renderable(function (Throwable $e, $request) {
+            if ($e instanceof \Illuminate\Database\QueryException) {
+                return response()->json([
+                    'status'      => ApiStatus::ERROR->value,
+                    'status_code' => Response::HTTP_INTERNAL_SERVER_ERROR,
+                    'message'     => Messages::DATABASE_ERROR->value,
+                ], Response::HTTP_INTERNAL_SERVER_ERROR);
+            }
+
             $code = $e->getCode() ?: Response::HTTP_INTERNAL_SERVER_ERROR;
             $message = config('app.debug')
                 ? $e->getMessage()

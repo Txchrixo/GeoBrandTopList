@@ -8,7 +8,7 @@ return [
     | Code utilisé quand on ne connaît pas la géolocalisation
     */
     'top_list' => [
-        'default_country' => 'FR',
+        'default_country' => 'CM',
     ],
     'pagination' => [
         'per_page'   => 8,

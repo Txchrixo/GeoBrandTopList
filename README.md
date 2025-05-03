@@ -16,8 +16,12 @@
 1. From the project root, run:
    docker compose up -d
 
-2. Open your browser and go to:
+2. Open your browser and go to (But Backend needed):
    http://localhost:5500/
+
+3. Login credentials if needed:
+   Email: `admin@admin.com`
+   Password: `admin`
 
 ## Running the Laravel Backend (manually)
 

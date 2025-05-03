@@ -17,4 +17,5 @@ enum Messages: string
     case RESOURCE_CREATED_SUCCESSFULLY = 'Resource created successfully';
     case RESOURCE_UPDATED_SUCCESSFULLY = 'Resource updated successfully';
     case NO_UPDATE_FIELDS_PROVIDED = 'At least one field must be provided for update';
+    case DATABASE_ERROR = 'Database error, please check if everything is ok with your database';
 }

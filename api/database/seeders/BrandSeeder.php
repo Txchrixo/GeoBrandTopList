@@ -10,7 +10,7 @@ class BrandSeeder extends Seeder
 {
     public function run()
     {
-        Brand::truncate();
+        if (Brand::count() > 0) Brand::truncate();
         Brand::factory()->count(100)->create();
     }
 } 
