@@ -1,0 +1,22 @@
+.hero {
+    font-family: 'Paytone One', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 4rem 1rem;
+    background-color: #fff;
+    padding: 2rem 0;
+    width: 100%;
+}
+  
+.hero h1 {
+    font-weight: 800;
+    font-size: clamp(1.3rem, 6vw, 2.5rem);
+    line-height: 1.2;
+}
+  
+.hero-container {
+    width: 100%;
+    max-width: 800px;
+}

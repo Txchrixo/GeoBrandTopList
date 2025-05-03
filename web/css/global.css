@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=Paytone+One&family=Inter:wght@400;500;600;700&display=swap');
+
+html {
+    height: 100%;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400 !important;
+    background: #f8f9fa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 2px;
+    min-height: fit-content !important;
+}
+
+.head-container {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    margin-top: 2.5rem;
+    margin-top: 5rem;
+}
+
+.head-title {
+    font-family: 'Paytone One', sans-serif;
+    font-size: clamp(1.5rem, 5vw, 2.2rem);
+    color: #2d3436;
+    letter-spacing: -1px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.btn {
+    flex: 0 0 auto;       
+    padding: 0.6em 1.2em; 
+    font-size: 1rem;
+    font-weight: 400;
+    border: none;
+    border-radius: 0.5rem;
+    background: #2d3436;
+    color: #fff;
+    text-decoration: none; 
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1),
+                background 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.btn:hover {
+    background: #3b4345;
+    transform: translateY(-2px);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+main {
+    width: 100%;
+    padding: 20px 5px;
+    max-width: 85%;
+}
+
+.link-reset {
+    text-decoration: none;
+    color: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+}
+
+.link-reset:hover {
+    color: inherit;
+    text-decoration: none;
+}

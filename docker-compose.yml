@@ -1,0 +1,49 @@
+# docker-compose.yml (Local)
+
+services:
+
+  # backend:
+  #   build:
+  #     context: ./api
+  #     dockerfile: Dockerfile
+  #   volumes:
+  #     - ./api:/var/www
+  #   tty: true
+  #   working_dir: /var/www
+  #   env_file:
+  #     - ./api/.env
+  #   ports:
+  #     - 7000:80
+  #   depends_on:
+  #     - db 
+  #   networks:
+  #     - geo-brand-net
+
+  nginx:
+    build:
+      context: ./web
+      dockerfile: Dockerfile
+    ports:
+      - "5500:80"
+    networks:
+      - geo-brand-net
+
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD} 
+    ports:
+      - 3306:3306
+    volumes:
+      - db-data:/var/lib/mysql
+
+volumes:
+  db-data:
+
+# Réseau
+networks:
+  geo-brand-net:
+    driver: bridge

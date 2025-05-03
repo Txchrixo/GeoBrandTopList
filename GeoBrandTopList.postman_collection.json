@@ -1,0 +1,198 @@
+{
+	"info": {
+		"_postman_id": "25b8ba0d-4a6a-4a0b-9a1a-2c4547942fe3",
+		"name": "GeoBrandTopList",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "22111701"
+	},
+	"item": [
+		{
+			"name": "Show Brand",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"user-agent": true,
+					"host": true,
+					"accept": true,
+					"accept-encoding": true,
+					"connection": true
+				}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+						"type": "text"
+					},
+					{
+						"key": "Referer",
+						"value": "https://www.google.com/",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/ *;q=0.8",
+						"type": "text"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-US,en;q=0.9",
+						"type": "text"
+					}
+				],
+				"url": "http://localhost:7000/api/brands/5"
+			},
+			"response": []
+		},
+		{
+			"name": "List Brands",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "CF-IPCountry",
+						"value": "FR",
+						"type": "text"
+					}
+				],
+				"url": "http://localhost:7000/api/brands"
+			},
+			"response": []
+		},
+		{
+			"name": "Update Brand",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "brand_rating",
+							"value": "4.20",
+							"type": "text"
+						}
+					]
+				},
+				"url": "http://localhost:7000/api/brands/5"
+			},
+			"response": []
+		},
+		{
+			"name": "Update Brand",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "brand_name",
+							"value": "Hills, Bahringer and Bayer Casino",
+							"type": "text"
+						},
+						{
+							"key": "brand_url",
+							"value": "https://www.casinoonlinefrancais.info/casino/hills,-bahringer-and-bayer-casino/go.html",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "brand_img_url",
+							"value": "https://www.casinoonlinefrancais.info/cdn-cgi/image/format=webp,width=255,height=100,quality=80/img/logo250/vegasino-casino.webp",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "brand_rating",
+							"value": "3.5",
+							"type": "text"
+						},
+						{
+							"key": "brand_country_id",
+							"value": "34",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "is_active",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": "http://localhost:7000/api/brands/5"
+			},
+			"response": []
+		},
+		{
+			"name": "Remove Brand",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "http://localhost:7000/api/brands/105"
+			},
+			"response": []
+		},
+		{
+			"name": "List Countries",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Logout User",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Create Brand",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "List Top Brands",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Health",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Login User",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "password",
+							"value": "vvsvs",
+							"type": "text"
+						}
+					]
+				},
+				"url": "http://127.0.0.1:7000/api/v1/login"
+			},
+			"response": []
+		}
+	]
+}

@@ -1,0 +1,29 @@
+.site-footer {
+    position: fixed;
+    bottom: 0;
+    left:   0;
+    width:  100%;
+    z-index: 1000;
+    background: #FFFFFF; 
+    color: #6E6E6E; 
+    text-align: center;
+    padding: 1.5rem 0;
+    font-family: sans-serif;
+    font-size: clamp(0.875rem, 2.5vw, 1rem);
+    position: relative;    
+    bottom: 0;
+    left: 0;
+    border-top: 1px solid #E0E0E0;
+}
+  
+.site-footer .footer-link {
+    color: #6E6E6E;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.site-footer .footer-link:hover {
+    color: #1abc9c; 
+}
+  

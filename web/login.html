@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GeoBrandTopList - Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Paytone+One&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="css/error-alert.css">
+</head>
+<style>
+    .btn:disabled {
+        background-color: #E0E0E0;
+        color: #6c757d;
+        cursor: not-allowed;
+    }
+</style>
+<body style="display: flex; flex-direction: column; min-height: 100vh;">
+    <div class="navbar">
+        <div class="navbar-left">
+            <h1 class="head-title"><a href="index.html" class="link-reset">GeoBrandTopList</a></h1>
+        </div>
+        <div class="navbar-right">
+            <a class="btn" style="text-decoration: none;" href="mailto:nanachristian2002@gmail.com">Contact Me</a>
+        </div>
+    </div>
+    <div class="container">
+        <div class="head-container">
+            <h1 class="head-title">Sign In</h1>
+        </div>
+        <form id="loginForm" class="login-form" novalidate>
+            <div id="error-alert" class="error-container error-hidden">
+                <p class="error-text"></p>
+            </div>
+            <div class="input-group">
+                <label>Email</label>
+                <input id="email" type="email" placeholder="Enter your email" required>
+                <div id="email-error" class="error-text error-hidden"></div>
+            </div>
+            <div class="input-group">
+                <label>Password</label>
+                <input id="password" type="password" placeholder="Enter your password" required>
+                <div id="password-error" class="error-text error-hidden"></div>
+            </div>
+            <button type="submit" class="btn signin-btn">
+                Sign In
+            </button>
+        </form>
+    </div>
+    <script type="module">
+        import { login as apiLogin } from './js/api.js';
+
+        function resetErrorAlert() {
+            const errorAlert = document.getElementById('error-alert');
+            errorAlert.classList.add('error-hidden');
+            const errorTexts = document.querySelectorAll('.error-text');
+            errorTexts.forEach(el => {
+                el.textContent = '';
+            });
+            const emailInput = document.getElementById('email');
+            emailInput.classList.remove('error-border');
+            const passwordInput = document.getElementById('password');
+            passwordInput.classList.remove('error-border');
+        }
+        
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('loginForm');
+            const submitButton = form.querySelector('button[type="submit"]');
+
+            if (form) {
+                form.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    resetErrorAlert();
+
+                    const email = form.email.value;
+                    const password = form.password.value;
+                    submitButton.disabled = true;
+                    try {
+                        await apiLogin(email, password);
+                        window.location.href = 'dashboard.html';
+                    } catch (err) {
+                        const msg = err.message;  
+                        const alert = document.getElementById('error-alert');
+                        alert.classList.remove('error-hidden');
+                        alert.querySelector('.error-text').textContent = msg;
+                        setTimeout(() => {
+                            resetErrorAlert();
+                        }, 10000);
+
+                        if (err.errors) {
+                            Object.entries(err.errors).forEach(([field, messages]) => {
+                                const el = document.getElementById(`${field}-error`);
+                                const input = document.getElementById(field);
+                                input.classList.add('error-border');
+                                el.textContent = messages[0];
+                                el.classList.remove('error-hidden');
+                            });
+                        }
+                    } finally {
+                        submitButton.disabled = false;
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

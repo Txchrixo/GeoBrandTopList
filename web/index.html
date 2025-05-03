@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GeoBrandTopList - Brand Top List</title>
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/error-alert.css">
+  <link rel="stylesheet" href="css/pagination.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <link rel="stylesheet" href="css/hero.css">
+  <link rel="stylesheet" href="css/brands-list.css">
+</head>
+<style>
+    .error-text {
+        color: #DC2626;
+        font-size: 12px;
+        padding: 12px 15px !important;
+    }
+
+    .card-grid .loader {
+        grid-column: 1 / -1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 50px 0px;
+    }
+
+    .loader-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+    }
+
+    .loader-circle {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background-color: #000;
+        margin: 0 5px;
+    }
+
+    .loader-circle:nth-child(1) {
+        animation: loader-circle-1 1.5s infinite;
+    }
+
+    .loader-circle:nth-child(2) {
+        animation: loader-circle-2 1.5s infinite;
+    }
+
+    .loader-circle:nth-child(3) {
+        animation: loader-circle-3 1.5s infinite;
+    }
+
+    .country-flag {
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        margin-left: 10px;
+    }
+
+    @keyframes loader-circle-1 {
+        from { transform: translateY(0); }
+        to { transform: translateY(-10px); }
+    }
+
+    @keyframes loader-circle-2 {
+        from { transform: translateY(0); }
+        to { transform: translateY(-10px); }
+    }
+
+    @keyframes loader-circle-3 {
+        from { transform: translateY(0); }
+        to { transform: translateY(-10px); }
+    }
+</style>
+<body style="display: flex; flex-direction: column; min-height: 100vh;">
+  <div class="navbar">
+      <div class="navbar-left">
+            <h1 class="head-title"><a href="index.html" class="link-reset">GeoBrandTopList</a></h1>
+      </div>
+      <div class="navbar-right">
+          <a class="btn" style="text-decoration: none;" href="login.html">Sign In</a>
+      </div>
+  </div>
+  <section class="hero">
+    <div class="hero-container">
+      <h1>
+        Top Brands In 
+        <span id="country-name">...</span>
+        <img class="country-flag" alt="Cameroon" id="country-flag" hidden>
+      </h1>
+    </div>
+  </section>
+  <main>
+    <div class="list-title-container">
+      <ul class="list-title">
+          Best Brands
+      </ul>
+    </div>
+    <div class="card-grid">
+        <div class="loader">
+            <div class="loader-container">
+                <div class="loader-circle"></div>
+                <div class="loader-circle"></div>
+                <div class="loader-circle"></div>
+            </div>
+        </div>
+      </div>
+      <nav class="pagination">
+      </nav>
+  </main>
+  <footer class="site-footer">
+    <span>© <span id="current-year">2025</span> – Made by <a href="https://github.com/txchrixo" target="_blank" rel="noopener" class="footer-link">Txchrixo</a></span>
+  </footer>
+  <script>
+    document.getElementById('current-year').textContent = new Date().getFullYear();
+  </script>
+  <script type="module">
+    import { fetchTopList } from './js/api.js';
+    document.addEventListener('DOMContentLoaded', async () => {
+        const cardGrid = document.querySelector('.card-grid');
+        const pagination = document.querySelector('.pagination');
+
+        const urlParams = new URLSearchParams(window.location.search);
+        let currentPage = parseInt(urlParams.get('page')) || 1;
+
+        function updateURL(page) {
+            const newUrl = new URL(window.location);
+            newUrl.searchParams.set('page', page);
+            window.history.pushState({ page }, '', newUrl);
+        }
+
+        function createPageLink(page, currentPage) {
+            return `
+                <li class="page-item ${page === currentPage ? 'active' : ''}">
+                    <a href="?page=${page}" class="page-link">${page}</a>
+                </li>
+            `;
+        }
+
+        function updatePagination(meta) {
+            const pages = Array.from({length: meta.last_page}, (_, i) => i + 1);
+            
+            let pagesHTML = '';
+            pages.forEach(page => {
+                pagesHTML += createPageLink(page, meta.current_page);
+            });
+
+            pagination.innerHTML = `
+                <a href="?page=${meta.current_page - 1}" 
+                class="page-link prev ${meta.current_page === 1 ? 'disabled' : ''}">
+                    <span class="arrow">←</span>
+                    Previous
+                </a>
+                <ul class="pages">${pagesHTML}</ul>
+                <a href="?page=${meta.current_page + 1}" 
+                class="page-link next ${meta.current_page === meta.last_page ? 'disabled' : ''}">
+                    Next
+                    <span class="arrow">→</span>
+                </a>
+            `;
+        }
+
+        function createBrandCard(brand) {
+            return `
+                <article class="card">
+                    <div class="card-image">
+                        <img src="${brand.image_url || 'https://fakeimg.pl/255x100?text=No+Image&font=bebas'}" alt="${brand.name}">
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">${brand.name}</h3>
+                        <p class="card-desc">${brand.description || 'No description available'}</p>
+                        <div class="card-rating">
+                            <span class="rating-value">${brand.rating || '5.0'}</span>
+                            <span class="rating-stars">
+                                ${Array(5).fill().map((_, i) => 
+                                    `<span class="star ${i < Math.floor(brand.rating || 5) ? 'filled' : ''}">★</span>`
+                                ).join('')}
+                            </span>
+                        </div>
+                        <a href="${brand.url}" class="btn card-btn" target="_blank">Visit the site</a>
+                    </div>
+                </article>
+            `;
+        }
+
+        function addLoader() {
+            cardGrid.innerHTML = `
+            <div class="loader">
+                <div class="loader-container">
+                    <div class="loader-circle"></div>
+                    <div class="loader-circle"></div>
+                    <div class="loader-circle"></div>
+                </div>
+            </div>
+            `;
+        }
+    
+        async function loadBrands(page = 1) {
+            try {
+                addLoader();
+                const response = await fetchTopList(page);
+                console.log('response=====', response);
+                const { brands, metadata, country } = response;
+                
+                document.getElementById('country-name').textContent = country.name;
+                document.getElementById('country-flag').src = country.flag_url;
+                document.getElementById('country-flag').hidden = false;
+
+                currentPage = metadata.current_page;
+                updateURL(currentPage);
+    
+                cardGrid.innerHTML = brands.map(createBrandCard).join('');
+                updatePagination(metadata);
+            
+                document.querySelectorAll('.page-link').forEach(link => {
+                    link.addEventListener('click', async (e) => {
+                        console.log('e.target.href', e.target.href);
+                        e.preventDefault();
+                        const newPage = parseInt(new URL(e.target.href).searchParams.get('page'));
+                        if(!isNaN(newPage)) await loadBrands(newPage);
+                    });
+                });
+    
+            } catch (error) {
+                console.error('Error loading brands:', error);
+                cardGrid.innerHTML = `<p class="error-container error-text">Failed to load brands. Please try again later.</p>`;
+            }
+        }
+
+        window.addEventListener('popstate', (e) => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const newPage = parseInt(urlParams.get('page')) || 1;
+            loadBrands(newPage);
+        });
+    
+        await loadBrands(currentPage);
+    });
+    </script>
+</body>
+</html>
