@@ -19,7 +19,6 @@
 2. Open your browser and go to:
    http://localhost:5500/
 
-
 ## Running the Laravel Backend (manually)
 
 1. Open a new terminal and go to the backend directory:
@@ -34,10 +33,13 @@
 4. Generate the application key:
    php artisan key:generate
 
+5. Migrations and seeders:
+   php artisan migrate --seed
+
 5. Start the Laravel development server on port 7000:
    php artisan serve --host=0.0.0.0 --port=7000
 
-6. The backend will be available at calls on:
+7. The backend will be available at calls on:
    http://localhost:7000/api/v1/...
 
 ## CRUD via cURL or Postman
@@ -52,9 +54,8 @@ To stop containers and remove volumes (frontend + DB):
 To restart:
   docker compose up -d
 
-## Notes
+## Notes / Improvements
 
-- Manage the overall monorepo with pnpm,
-- Dockerize the backend && db
-- Implement a proper dashbaord view :l
-
+- Use `pnpm` to manage the overall monorepo
+- Dockerize the backend along with the database
+- Implement a proper and responsive dashboard view
