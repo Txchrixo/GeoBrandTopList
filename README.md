@@ -65,7 +65,11 @@
 
 ## CRUD via cURL or Postman
 
-You can test the API endpoints using tools like Postman or cURL. Make sure your backend is running (via `php artisan serve` on port 7000) and accessible. To check it try a http://localhost:7000/api/health request first.
+You can test the API endpoints using like Postman, cURL or whatever. Make sure backend is running (via docker-compose up -d) and accessible. To begin, try a request to http://localhost:5500/api/v1/login to obtain the access token.
+
+Once you have it, can make authenticated API requests by including the token in the Authorization header as a Bearer token:
+
+Authorization: Bearer <access_token>
 
 ## Stopping and Cleaning Up
 
