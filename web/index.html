@@ -203,7 +203,6 @@
             try {
                 addLoader();
                 const response = await fetchTopList(page);
-                console.log('response=====', response);
                 const { brands, metadata, country } = response;
                 
                 document.getElementById('country-name').textContent = country.name;
@@ -218,7 +217,6 @@
             
                 document.querySelectorAll('.page-link').forEach(link => {
                     link.addEventListener('click', async (e) => {
-                        console.log('e.target.href', e.target.href);
                         e.preventDefault();
                         const newPage = parseInt(new URL(e.target.href).searchParams.get('page'));
                         if(!isNaN(newPage)) await loadBrands(newPage);
@@ -226,7 +224,6 @@
                 });
     
             } catch (error) {
-                console.error('Error loading brands:', error);
                 cardGrid.innerHTML = `<p class="error-container error-text">Failed to load brands. Please try again later.</p>`;
             }
         }

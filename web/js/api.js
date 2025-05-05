@@ -37,9 +37,7 @@ export async function request(path, options = {}) {
         "Accept": "application/json",
         ...options.headers,
     };
-    console.log('headers', headers);
 
-    console.log('url', `${API_BASE}${path}`);
     const res = await fetch(`${API_BASE}${path}`, {
         ...options,
         headers,
@@ -48,7 +46,6 @@ export async function request(path, options = {}) {
 
     if (!res.ok) {
         const err = await res.json(); 
-        console.log('err', err);
         const error = new Error(err.message || 'API error');
         if (err.errors) error.errors = err.errors;
         throw error;
@@ -58,8 +55,6 @@ export async function request(path, options = {}) {
 }
 
 export async function login(email, password) {
-  console.log('login');
-  console.log('lofffffff', JSON.stringify({ email, password }));
   const data = await request(API_ENDPOINTS.LOGIN.path, {
     method: API_ENDPOINTS.LOGIN.method,
     body: JSON.stringify({ email, password }),

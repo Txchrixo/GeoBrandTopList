@@ -16,49 +16,52 @@
 
 ## Prerequisites
 
-- Docker
-- PHP 8.1+ and Composer installed (for Laravel 10)
+- **Docker**
+- **Modern web browser** (Chrome, Firefox, Safari…)
 
 ## Quick Project Structure
 
-- **api/**            Laravel backend Api
-- **web/**            Frontend (HTML/CSS/JS) + Nginx config
+- **api/**            Laravel backend REST API
+- **web/**            Frontend (HTML/CSS/JS)
+- **docker/nginx/**   Nginx reverse proxy 
+- **docs/images/**    Screenshots 
 - **docker-compose.yml**
 
-## Running the Frontend
+## Running the project
 
-1. From the project root, run:
+1. Copy the example environment file:
+   ```
+   cp api/.env.example .env
+   ```
+
+1. **Start services** from the project root:
+
+   ```bash
    docker compose up -d
+   ```
 
-2. Open your browser and go to (But Backend needed):
+2. Generate the application key:
+   ```bash
+   docker exec -it geobrand-api php artisan key:generate
+   ```
+
+2. **Run migrations and seeders** (only once):
+
+   ```bash
+   docker exec -it geobrand-api php artisan migrate --seed
+   ```
+
+3. **Open your browser** at:
+
+   ```
    http://localhost:5500/
+   ```
 
-3. Login credentials if needed:
-   Email: `admin@admin.com`
-   Password: `admin`
+4. **Login credentials**:
 
-## Running the Laravel Backend (manually)
+   - Email: `admin@admin.com`
+   - Password: `admin`
 
-1. Open a new terminal and go to the backend directory:
-   cd api
-
-2. Install PHP dependencies:
-   composer install
-
-3. Copy the example environment file:
-   cp .env.example .env
-
-4. Generate the application key:
-   php artisan key:generate
-
-5. Migrations and seeders:
-   php artisan migrate --seed
-
-5. Start the Laravel development server on port 7000:
-   php artisan serve --host=0.0.0.0 --port=7000
-
-7. The backend will be available at calls on:
-   http://localhost:7000/api/v1/...
 
 ## CRUD via cURL or Postman
 
@@ -75,5 +78,4 @@ To restart:
 ## Notes / Improvements
 
 - Use `pnpm` to manage the overall monorepo
-- Dockerize the backend along with the database
 - Implement a proper and responsive dashboard view
